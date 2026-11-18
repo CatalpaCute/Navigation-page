@@ -11,6 +11,7 @@
     "check": "node scripts/check.mjs"
   },
   "dependencies": {
-    "cheerio": "1.1.2"
+    "cheerio": "1.1.2",
+    "markdown-it": "15.0.3"
   }
 }

@@ -2,6 +2,7 @@ import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
 import { document } from '../src/lib/render.mjs';
+import { loadAbout } from '../src/lib/load-about.mjs';
 
 const root = resolve('public');
 const types = { '.css':'text/css; charset=utf-8', '.mjs':'text/javascript; charset=utf-8', '.jpg':'image/jpeg', '.png':'image/png', '.webp':'image/webp', '.woff2':'font/woff2', '.svg':'image/svg+xml', '.json':'application/json; charset=utf-8' };
@@ -9,9 +10,19 @@ const server = http.createServer(async (request, response) => {
   try {
     const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
     if (['/', '/projects', '/projects/', '/about', '/about/', '/About', '/About/'].includes(pathname)) {
-      const snapshot = JSON.parse(await readFile('src/content/about.json', 'utf8'));
+      const route = pathname.toLowerCase().replace(/\/$/,'') || '/';
+      let about;
+      if (route === '/about') {
+        try {
+          about = await loadAbout();
+        } catch (error) {
+          response.writeHead(500, {'Content-Type':'text/plain; charset=utf-8'});
+          response.end(`About 预览失败：${error.message}`);
+          return;
+        }
+      }
       response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
-      response.end(document(pathname.toLowerCase().replace(/\/$/,'') || '/', snapshot));
+      response.end(document(route, about));
       return;
     }
     const isSource = pathname === '/content/site.mjs';

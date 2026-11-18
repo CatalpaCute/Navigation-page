@@ -158,20 +158,20 @@ Cloudflare Pages 的 Git 集成会监听仓库推送，并可为其他分支或 
 ## 以后怎么更新网站
 
 - 首页项目、社交链接、照片等内容：编辑 `src/content/site.mjs`。
-- About 正文：运行 `npm run sync:about` 从博客手动更新快照。
+- About 正文：在 `src/content/about-mode.json` 中选 `blog` 使用博客快照，或选 `manual` 使用 `src/content/about.md`。
 - 页面样式和交互：分别查看 `public/styles.css` 和 `public/app.mjs`。
 
-About 的博客正文会在 `npm run sync:about` 时抓取并保存。单纯推送代码或触发平台构建**不会**重新抓博客。更新完成后运行检查和构建，再提交并推送：
+运行 `npm run sync:about` 可以单独更新博客快照。切换来源保留两份正文。更新完成后运行检查和构建，再提交并推送：
 
 ```powershell
 npm run check
 npm run build
-git add src/content/site.mjs src/content/about.json public dist
+git add src/content public
 git commit -m "Update website content"
 git push
 ```
 
-如果只改了其中一类内容，`git add` 后面可以只列出实际修改的文件和生成的 `dist`。GitHub Pages 工作流和 Cloudflare Pages 都会在推送后重新构建。
+如果从仓库根目录发布，按本文第一节运行 `npm run build:pages`，并一并提交更新后的根目录发布文件。使用 GitHub Actions 或 Cloudflare Pages 时，平台会在推送后重新构建。
 
 ## 常见问题
 

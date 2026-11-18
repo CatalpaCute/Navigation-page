@@ -4,15 +4,17 @@ import { load } from 'cheerio';
 import { site } from '../src/content/site.mjs';
 import { document } from '../src/lib/render.mjs';
 import { extractAbout } from '../src/lib/about.mjs';
+import { loadAbout } from '../src/lib/load-about.mjs';
 
 try {
   const snapshot = JSON.parse(await readFile('src/content/about.json','utf8'));
-  const home = load(document('/',snapshot));
+  const about = await loadAbout();
+  const home = load(document('/'));
   assert.equal(home('h1').length,1);
   assert.equal(home('a[href="/about"]').length,2);
   assert.equal(home('a[href="/projects"]').length,2);
   for (const route of ['/','/about','/projects']) {
-    const page = load(document(route,snapshot));
+    const page = load(document(route,about));
     assert.equal(page('nav a[aria-current="page"]').attr('href'),route);
     assert.equal(page('main').length,1);
     for (const element of page('a').toArray()) {
@@ -21,7 +23,7 @@ try {
       if (link.attr('target') === '_blank') assert.ok(link.attr('rel').includes('noopener'));
     }
   }
-  const projects = load(document('/projects',snapshot));
+  const projects = load(document('/projects'));
   assert.deepEqual(projects('.project-row').map((_,node)=>projects(node).attr('href')).get(),site.projects.map(project=>project.url));
   for (const photo of site.photos) await access(`public${photo.src}`);
   for (const font of ['outfit','lato-300','lato-400','manrope']) await access(`public/assets/fonts/${font}.woff2`);
