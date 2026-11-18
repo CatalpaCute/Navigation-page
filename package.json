@@ -1,0 +1,16 @@
+{
+  "name": "catalpacute-personal-site",
+  "version": "1.0.8",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "build:pages": "node scripts/build.mjs --pages",
+    "sync:about": "node scripts/sync-about.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "cheerio": "1.1.2"
+  }
+}

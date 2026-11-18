@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.npm-cache/
+.sites-runtime/
+.qa/
+*.tar.gz
+*.log
+.env
