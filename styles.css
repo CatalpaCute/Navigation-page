@@ -1,0 +1,287 @@
+:root {
+  --paper: #f1f0eb;
+  --ink: #050505;
+  --muted: rgba(5, 5, 5, 0.64);
+  --line: rgba(5, 5, 5, 0.13);
+  --rule: rgba(5, 5, 5, 0.34);
+  --card: rgba(255, 255, 255, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--ink);
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.035), transparent 28%, rgba(255, 255, 255, 0.28) 68%, rgba(5, 5, 5, 0.03)),
+    repeating-linear-gradient(
+      to bottom,
+      var(--paper) 0,
+      var(--paper) 51px,
+      var(--line) 51px,
+      var(--line) 52px
+    );
+}
+
+.page {
+  min-height: 100dvh;
+  padding: 16px;
+}
+
+.hero-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 44%);
+  height: calc(100dvh - 32px);
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid rgba(5, 5, 5, 0.24);
+  border-radius: 8px;
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  min-width: 0;
+  padding: 56px 72px 56px;
+}
+
+.hero-header {
+  align-self: center;
+  transform: translateY(4px);
+}
+
+.hero-name {
+  margin: 0;
+  font-family: "Segoe Print", "Comic Sans MS", "Bradley Hand ITC", "Ink Free", cursive;
+  font-size: 4.9rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: rotate(-1.6deg);
+  transform-origin: left center;
+}
+
+.hero-meta {
+  margin: 30px 0 0;
+  color: var(--muted);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.hero-line {
+  margin: 0 0 38px;
+  max-width: 22rem;
+  color: #22334a;
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 1.45rem;
+  line-height: 1.65;
+}
+
+.hero-links {
+  display: grid;
+  width: min(100%, 430px);
+}
+
+.hero-link {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  min-height: 52px;
+  padding: 10px 0;
+  border-top: 2px solid var(--rule);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.hero-link:last-child {
+  border-bottom: 2px solid var(--rule);
+}
+
+.hero-link:hover,
+.hero-link:focus-visible {
+  color: #000000;
+  border-color: rgba(17, 17, 17, 0.42);
+  transform: translateX(4px);
+  outline: none;
+}
+
+.hero-link span {
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 1.48rem;
+  font-weight: 700;
+}
+
+.hero-link small {
+  color: var(--muted);
+  font-size: 0.92rem;
+  letter-spacing: 0.1em;
+}
+
+.portrait {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: 22px 22px 0 0;
+}
+
+.portrait-image {
+  display: block;
+  width: min(100%, 520px);
+  max-height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.portrait-image.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-height: 700px) and (min-width: 861px) {
+  .page {
+    padding: 10px;
+  }
+
+  .hero-card {
+    height: calc(100dvh - 20px);
+    min-height: 0;
+  }
+
+  .hero-copy {
+    padding: 36px 58px 34px;
+  }
+
+  .hero-name {
+    font-size: 4.25rem;
+  }
+
+  .hero-meta {
+    margin-top: 20px;
+    font-size: 1.05rem;
+  }
+
+  .hero-line {
+    margin-bottom: 22px;
+    font-size: 1.2rem;
+  }
+
+  .hero-link {
+    min-height: 44px;
+  }
+
+  .hero-link span {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-card {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 38%);
+  }
+
+  .hero-copy {
+    padding: 44px 46px 42px;
+  }
+
+  .hero-name {
+    font-size: 4.25rem;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .page {
+    padding: 0;
+  }
+
+  .hero-card {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100dvh;
+    border-width: 0;
+    border-radius: 0;
+  }
+
+  .hero-copy {
+    grid-template-rows: auto auto auto;
+    gap: 18px;
+    padding: 28px 20px 10px;
+  }
+
+  .hero-header {
+    transform: none;
+  }
+
+  .hero-name {
+    font-size: 3.25rem;
+    line-height: 1.04;
+  }
+
+  .hero-meta {
+    margin-top: 16px;
+    font-size: 1rem;
+  }
+
+  .hero-line {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .hero-link {
+    min-height: 48px;
+  }
+
+  .hero-link span {
+    font-size: 1.22rem;
+  }
+
+  .portrait {
+    justify-content: center;
+    min-height: 260px;
+    padding: 0 18px 14px;
+  }
+
+  .portrait-image {
+    width: min(100%, 330px);
+    max-height: 330px;
+    object-position: center bottom;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-name {
+    font-size: 3rem;
+  }
+
+  .hero-copy {
+    padding-inline: 16px;
+  }
+}

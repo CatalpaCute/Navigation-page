@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CatalpaCute</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23111111'/%3E%3Ctext x='32' y='41' font-size='28' text-anchor='middle' fill='white' font-family='serif'%3EC%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero-card" aria-label="CatalpaCute 个人首页">
+        <div class="hero-copy">
+          <header class="hero-header">
+            <h1 class="hero-name">CatalpaCute</h1>
+            <p class="hero-meta">18岁，是学生</p>
+          </header>
+
+          <p class="hero-line">今天这里有什么新鲜事呢…</p>
+
+          <nav class="hero-links" aria-label="站点导航">
+            <a class="hero-link" href="https://me.czzzz.work" target="_blank" rel="noreferrer">
+              <span>博客</span>
+              <small>01</small>
+            </a>
+            <a class="hero-link" href="https://mc.czzzz.work" target="_blank" rel="noreferrer">
+              <span>MC服务器</span>
+              <small>02</small>
+            </a>
+            <a class="hero-link" href="https://films.czzzz.work" target="_blank" rel="noreferrer">
+              <span>紫荆光影</span>
+              <small>03</small>
+            </a>
+          </nav>
+        </div>
+
+        <aside class="portrait" aria-label="轮换人像">
+          <img class="portrait-image" alt="CatalpaCute 人像" data-portrait />
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      (() => {
+        const image = document.querySelector("[data-portrait]");
+        if (!image) return;
+
+        const candidates = [
+          "./assets/1.png",
+          "./assets/2.png",
+          "./assets/3.png",
+          "./assets/4.png",
+          "./assets/5.png",
+          "./assets/6.png",
+          "./assets/7.png",
+          "./assets/8.png",
+          "./assets/catalpa-portrait-01.png",
+          "./assets/catalpa-portrait-02.png",
+          "./assets/catalpa-portrait-03.png",
+          "./assets/catalpa-portrait-04.png",
+          "./assets/catalpa-portrait-05.png",
+        ];
+
+        const loadable = candidates.map(
+          (src) =>
+            new Promise((resolve) => {
+              const probe = new Image();
+              probe.onload = () => resolve(src);
+              probe.onerror = () => resolve(null);
+              probe.src = src;
+            })
+        );
+
+        Promise.all(loadable).then((results) => {
+          const portraits = results.filter(Boolean);
+          if (!portraits.length) {
+            image.hidden = true;
+            return;
+          }
+
+          let index = 0;
+          const show = () => {
+            image.classList.remove("is-visible");
+            window.setTimeout(() => {
+              image.src = portraits[index];
+              image.classList.add("is-visible");
+              index = (index + 1) % portraits.length;
+            }, 180);
+          };
+
+          show();
+          if (portraits.length > 1) {
+            window.setInterval(show, 4200);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+- main [ref=e2]:
+  - region "CatalpaCute 个人首页" [ref=e3]:
+    - generic [ref=e4]:
+      - paragraph [ref=e5]: 个人主页 / 01
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: CATALPA CUTE
+        - heading "CatalpaCute" [level=1] [ref=e8]
+        - paragraph [ref=e9]: 18岁，是学生
+      - paragraph [ref=e10]: 今天这里有什么新鲜事呢…
+      - navigation "站点导航" [ref=e11]:
+        - link "博客 01" [ref=e12] [cursor=pointer]:
+          - /url: https://me.czzzz.work
+          - generic [ref=e13]: 博客
+          - generic [ref=e14]: "01"
+        - link "MC服务器 02" [ref=e15] [cursor=pointer]:
+          - /url: https://mc.czzzz.work
+          - generic [ref=e16]: MC服务器
+          - generic [ref=e17]: "02"
+        - link "紫荆光影 03" [ref=e18] [cursor=pointer]:
+          - /url: https://films.czzzz.work
+          - generic [ref=e19]: 紫荆光影
+          - generic [ref=e20]: "03"
+    - complementary "人物展示区" [ref=e21]
